@@ -59,7 +59,7 @@ public class Mediator {
 			setLock();
 			count++;
 			try {
-				Thread.sleep(1000); // 1 saniye bekle
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
