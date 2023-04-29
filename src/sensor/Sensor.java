@@ -1,6 +1,5 @@
 package sensor;
 
 public abstract class Sensor {
-	public abstract String sendReading();
-
+	public abstract String sendReading(boolean status);
 }

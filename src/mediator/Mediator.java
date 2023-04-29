@@ -7,18 +7,17 @@ import controlPanel.ControlPanel;
 import randomNumberGenerator.RandomNumberGenerator;
 import sensor.LightSensor;
 import sensor.MotionSensor;
-import sensor.Sensor;
 import sensor.TemperatureSensor;
 
 public class Mediator {
 
-	private ControlPanel controlPanel;
-	private LightSensor lightSensor;
-	private MotionSensor motionSensor;
-	private TemperatureSensor temperatureSensor;
-	private Thermostat thermostat;
-	private DoorLock doorLock;
-	private LightBulb lightBulb;
+	private final ControlPanel controlPanel;
+	private final LightSensor lightSensor;
+	private final MotionSensor motionSensor;
+	private final TemperatureSensor temperatureSensor;
+	private final Thermostat thermostat;
+	private final DoorLock doorLock;
+	private final LightBulb lightBulb;
 
 	public Mediator() {
 		this.controlPanel = new ControlPanel();
@@ -31,22 +30,29 @@ public class Mediator {
 	}
 
 	private void setTemperature(){
-		double newTemp = controlPanel.setTemperature();
-		thermostat.setTemperature(newTemp);
-		String sensorReadig = temperatureSensor.sendReading(newTemp);
-		System.out.println(sensorReadig);
+		double usersTemp = controlPanel.setTemperature();
+		if (20 > usersTemp || usersTemp > 25){
+			double randTemp = RandomNumberGenerator.getRandomDouble(20, 25);
+			thermostat.setTemperature(randTemp);
+			String sensorReading = temperatureSensor.sendReading(randTemp, usersTemp);
+			System.out.println(sensorReading);
+		}else {
+			thermostat.setTemperature(usersTemp);
+			String sensorReading = temperatureSensor.sendReading(usersTemp);
+			System.out.println(sensorReading);
+		}
 	}
 
 	private void setLight(){
 		boolean newStatus = controlPanel.turnOnOffLights();
-		lightBulb.setLightOn(newStatus);
+		lightBulb.setStatus(newStatus);
 		String sensorReading = lightSensor.sendReading(newStatus);
 		System.out.println(sensorReading);
 	}
 
 	private void setLock(){
 		boolean newStatus = controlPanel.lockUnlockDoors();
-		doorLock.setLocked(newStatus);
+		doorLock.setStatus(newStatus);
 		String sensorReading = motionSensor.sendReading(newStatus);
 		System.out.println(sensorReading);
 	}
@@ -54,10 +60,10 @@ public class Mediator {
 	public void run(){
 		int count = 0;
 		while (count < 20) {
+			System.out.println("second " + ++count + ":");
 			setTemperature();
 			setLight();
 			setLock();
-			count++;
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

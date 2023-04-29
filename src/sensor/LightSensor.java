@@ -1,6 +1,6 @@
 package sensor;
 
-public class LightSensor{
+public class LightSensor extends Sensor{
 
 	private boolean lightStatus;
 
@@ -12,6 +12,7 @@ public class LightSensor{
 		this.lightStatus = lightStatus;
 	}
 
+	@Override
 	public String sendReading(boolean lightStatus){
 		String status = lightStatus ? "on" : "off";
 		return "Lights are " + status;

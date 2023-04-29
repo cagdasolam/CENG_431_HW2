@@ -2,14 +2,15 @@ package actuator;
 
 public class DoorLock extends Actuator{
 
-	private boolean isLocked;
+	private boolean status;
 
-	public boolean isLocked() {
-		return isLocked;
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setLocked(boolean locked) {
-		isLocked = locked;
+	@Override
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 

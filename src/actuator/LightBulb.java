@@ -2,13 +2,14 @@ package actuator;
 
 public class LightBulb extends Actuator{
 
-	private boolean isLightOn;
+	private boolean status;
 
-	public boolean isLightOn() {
-		return isLightOn;
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setLightOn(boolean lightOn) {
-		isLightOn = lightOn;
+	@Override
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }
