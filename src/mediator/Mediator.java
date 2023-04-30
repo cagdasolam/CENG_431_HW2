@@ -9,6 +9,8 @@ import sensor.LightSensor;
 import sensor.MotionSensor;
 import sensor.TemperatureSensor;
 
+import java.text.DecimalFormat;
+
 public class Mediator {
 
 	private final ControlPanel controlPanel;
@@ -31,16 +33,17 @@ public class Mediator {
 
 	private void setTemperature(){
 		double usersTemp = controlPanel.setTemperature();
+		DecimalFormat df = new DecimalFormat();
+		df.setMaximumFractionDigits(1);
+		System.out.println("Temperature set to " + df.format(usersTemp));
+		thermostat.setTemperature(usersTemp);
+		String sensorReading = temperatureSensor.sendReading(usersTemp);
 		if (20 > usersTemp || usersTemp > 25){
 			double rearrangedTemp = RandomNumberGenerator.getRandomDouble(20, 25);
 			thermostat.setTemperature(rearrangedTemp);
-			String sensorReading = temperatureSensor.sendReading(rearrangedTemp, usersTemp);
-			System.out.println(sensorReading);
-		}else {
-			thermostat.setTemperature(usersTemp);
-			String sensorReading = temperatureSensor.sendReading(usersTemp);
-			System.out.println(sensorReading);
+			sensorReading = temperatureSensor.sendReading(rearrangedTemp, usersTemp);
 		}
+		System.out.println(sensorReading);
 	}
 
 	private void setLight(){
@@ -63,6 +66,7 @@ public class Mediator {
 			setTemperature();
 			setLight();
 			setLock();
+			System.out.println();
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

@@ -16,10 +16,10 @@ public class TemperatureSensor extends Sensor{
 		DecimalFormat df = new DecimalFormat();
 		df.setMaximumFractionDigits(1);
 		if (usersTemp > 25){
-			return df.format(usersTemp) + " is too hot, temperature is set to " + df.format(temperature);
+			return df.format(usersTemp) + " is too hot, temperature is decreased to " + df.format(temperature);
 		}
 		if (usersTemp < 20){
-			return df.format(usersTemp) + " is too cold, temperature is set to " + df.format(temperature);
+			return df.format(usersTemp) + " is too cold, temperature is increased to " + df.format(temperature);
 		}
 		return "The temperature is " + df.format(temperature);
 	}
