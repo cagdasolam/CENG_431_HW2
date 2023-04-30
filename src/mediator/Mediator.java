@@ -32,9 +32,9 @@ public class Mediator {
 	private void setTemperature(){
 		double usersTemp = controlPanel.setTemperature();
 		if (20 > usersTemp || usersTemp > 25){
-			double randTemp = RandomNumberGenerator.getRandomDouble(20, 25);
-			thermostat.setTemperature(randTemp);
-			String sensorReading = temperatureSensor.sendReading(randTemp, usersTemp);
+			double rearrangedTemp = RandomNumberGenerator.getRandomDouble(20, 25);
+			thermostat.setTemperature(rearrangedTemp);
+			String sensorReading = temperatureSensor.sendReading(rearrangedTemp, usersTemp);
 			System.out.println(sensorReading);
 		}else {
 			thermostat.setTemperature(usersTemp);
@@ -56,7 +56,6 @@ public class Mediator {
 		String sensorReading = motionSensor.sendReading(newStatus);
 		System.out.println(sensorReading);
 	}
-
 	public void run(){
 		int count = 0;
 		while (count < 20) {
@@ -71,4 +70,5 @@ public class Mediator {
 			}
 		}
 	}
+
 }
